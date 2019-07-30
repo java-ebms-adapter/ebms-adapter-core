@@ -1,5 +1,5 @@
 == Introduction
-This project concerns a library that implements the http://www.ebxml.org/specs/ebMS2.pdf[ebMS communication standard].
+This project concerns a library that implements the http://www.ebxml.org/specs/ebMS2.pdf[ebMS2 communication standard].
 
 It can easily be used through Spring DI (within a Java project) or through its SOAP interface.
 https://gitlab.com/java-ebms-adapter/ebms-adapter-web[Another project] in this group forms an example of its use within a Tomcat web application.
@@ -48,6 +48,35 @@ To simplify CPA administration, adapter configuration and to enable easy testing
 * Only 1 (allPurpose) Channel per Action is supported
 * Manifest can only refer to payload data included as part of the message as payload document(s) contained in a Payload Container
 * Extendable to support other communciation protocols
+
+== Prerequisites
+Download and copy the following libraries:
+
+* c3p0-0.9.1.2.jar
+* Depending on your database, use:
+    - hsqldb-2.2.9.jar
+    - mysql-connector-java-5.1.18.jar
+    - mariadb-java-client-1.1.9.jar
+    - postgresql-9.1-901.jdbc3.jar or postgresql-9.1-901.jdbc4.jar
+    - jtds-1.2.4.jar or sqljdbc4-201004.jar
+    - ojdbc6-11.2.0.1.0.jar (and orai18n-11.2.0.1.0.jar)
+    
+== Usage
+You can use the ebMS Adapter in your own application by adding its JAR as a dependency.
+Use `nl/clockwork/ebms/main.xml` as a starting point.
+You will have to generate your own CPAs and implement a specific application flow for your purposes.
+
+At the defined endpoint the application will receive an object of type EbMSMessageContent that contains:
+
+- EbMSMessageContext (needed to reply on this message)
+- properties (contain the properties from the EbMS Header defined in application property `ebms.message.header.properties`
+- attachments (the actual EbMS Message Content)
+
+The application can instantiate a new message or reply to a received message by calling the EbMSMessageService.
+It should wrap the content of the message in an object of type EbMSMessageContent as an attachment.
+If the message is a response to a previously received message you have to include the EbMSMessageContext of the previous message.
+The EbMS Adapter will then correlate these messages.
+If the message is a new message you should leave the EbMSMessageContext empty.
 
 == History
 This project was originally started in 2011 on https://sourceforge.net/p/muleebmsadapter[SourceForge].
