@@ -1,0 +1,2 @@
+== Introduction
+This project concerns a library that implements the [http://www.ebxml.org/specs/ebMS2.pdf](ebMS communication standard).
