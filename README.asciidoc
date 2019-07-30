@@ -1,2 +1,53 @@
 == Introduction
-This project concerns a library that implements the [http://www.ebxml.org/specs/ebMS2.pdf](ebMS communication standard).
+This project concerns a library that implements the http://www.ebxml.org/specs/ebMS2.pdf[ebMS communication standard].
+
+It can easily be used through Spring DI (within a Java project) or through its SOAP interface.
+https://gitlab.com/java-ebms-adapter/ebms-adapter-web[Another project] in this group forms an example of its use within a Tomcat web application.
+
+A database is needed for storing CPAs (Collaboration Protocol Agreement) and messages (because the adapter implements https://en.wikipedia.org/wiki/Reliable_messaging[reliable messaging]).
+Support for the following databases is built-in:
+
+* hsqldb
+* mysql/mariadb
+* postgresql
+* msssql
+* oracle db
+
+To simplify CPA administration, adapter configuration and to enable easy testing and traffic inspection, the https://gitlab.com/java-ebms-adapter/ebms-admin-console/ebms-admin-console[ebMS Admin Console] is also available.
+
+== Features
+=== Implemented
+
+* Core Functionality
+  - Security Module
+    ** Signature
+    ** Encryption
+  - Error Handling Module
+  - SyncReply Module
+* Additional Features
+  - Reliable Messaging Module
+  - Message Status Service
+  - Message Service Handler Ping Service
+* HTTP(S) Protocol
+* Separate Error and Acknowledgement Messages
+
+=== Not implemented
+
+* Core Functionality
+    - Packaging
+* Additional Features
+    - Message Order Module
+    - Multi-Hop Module
+* Multiple Delivery Channels per Action
+
+=== Remarks
+
+* Duplicate messages will always be eliminated
+* Only standalone MSH level messages are supported
+* Only acts as ToPartyMSH, not as nextMSH
+* Only 1 (allPurpose) Channel per Action is supported
+* Manifest can only refer to payload data included as part of the message as payload document(s) contained in a Payload Container
+* Extendable to support other communciation protocols
+
+== History
+This project was originally started in 2011 on https://sourceforge.net/p/muleebmsadapter[SourceForge].
