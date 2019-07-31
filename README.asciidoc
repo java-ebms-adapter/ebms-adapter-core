@@ -1,3 +1,6 @@
+Build status:
+image:https://travis-ci.org/java-ebms-adapter/ebms-adapter-core.svg?branch=master[link="https://travis-ci.org/java-ebms-adapter/ebms-adapter-core"]
+
 == Introduction
 This project concerns a library that implements the http://www.ebxml.org/specs/ebMS2.pdf[ebMS2 communication standard].
 
