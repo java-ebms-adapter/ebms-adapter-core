@@ -14,3 +14,11 @@ deploy:
   on:
     repo: java-ebms-adapter/ebms-adapter-core
   name: $project_version
+addons:
+  sonarcloud:
+    organization: "java-ebms-adapter"
+    token:
+      secure: "c50eea5e7c122cc16a6e8e65271ef661e77efd47"
+script:
+  # The following command line builds the project, runs the tests with coverage and then executes the SonarCloud analysis
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=java-ebms-adapter_ebms-adapter-core
