@@ -90,13 +90,13 @@ You will have to generate your own CPAs and implement a specific application flo
 At the defined endpoint the application will receive an object of type EbMSMessageContent that contains:
 
 - EbMSMessageContext (needed to reply on this message)
-- properties (contain the properties from the EbMS Header defined in application property `ebms.message.header.properties`
-- attachments (the actual EbMS Message Content)
+- properties (contain the properties from the ebMS Header defined in application property `ebms.message.header.properties`
+- attachments (the actual ebMS Message Content)
 
 The application can instantiate a new message or reply to a received message by calling the EbMSMessageService.
 It should wrap the content of the message in an object of type EbMSMessageContent as an attachment.
 If the message is a response to a previously received message you have to include the EbMSMessageContext of the previous message.
-The EbMS Adapter will then correlate these messages.
+The ebMS Adapter will then correlate these messages.
 If the message is a new message you should leave the EbMSMessageContext empty.
 
 == History
