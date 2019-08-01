@@ -7,13 +7,32 @@ It can easily be used through Spring DI (within a Java project) or through its S
 https://gitlab.com/java-ebms-adapter/ebms-adapter-web[Another project] in this group forms an example of its use within a Tomcat web application.
 
 A database is needed for storing CPAs (Collaboration Protocol Agreement) and messages (because the adapter implements https://en.wikipedia.org/wiki/Reliable_messaging[reliable messaging]).
-Support for the following databases is built-in:
+Support for several databases is built-in.
 
-* hsqldb
-* mysql/mariadb
-* postgresql
-* msssql
-* oracle db
+.Supported databases
+[width="50%", cols="<,<e", frame="topbot", options="header"]
+|===
+<|DB
+<|Minimal version
+
+|HSQLDB
+|2.2.9
+
+|MySQL
+|5.5
+
+|MariaDB
+|5.5
+
+|PostgreSQL
+|9
+
+|MSSQL
+|2008 R2
+
+|Oracle DB
+|11
+|===
 
 To simplify CPA administration, adapter configuration and to enable easy testing and traffic inspection, the https://gitlab.com/java-ebms-adapter/ebms-admin-console/ebms-admin-console[ebMS Admin Console] is also available.
 
