@@ -19,17 +19,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>nl.clockwork.ebms</groupId>
+	<groupId>com.github.java-ebms-adapter</groupId>
 	<artifactId>ebms-core</artifactId>
 	<packaging>jar</packaging>
-	<name>EbMS Core</name>
+	<name>ebMS Adapter Core</name>
 	<version>2.15.2-mic</version>
-	<description></description>
-	<url>https://sourceforge.net/projects/muleebmsadapter/</url>
+	<description>Core library for the ebMS Adapter</description>
+	<url>https://github.com/java-ebms-adapter/ebms-adapter-core/</url>
+
 	<issueManagement>
 		<system>Tickets</system>
-		<url>https://sourceforge.net/p/muleebmsadapter/tickets/</url>
-	</issueManagement>	
+		<url>https://github.com/java-ebms-adapter/ebms-adapter-core/issues/</url>
+	</issueManagement>
+
 	<developers>
 		<developer>
 			<id>e.luinstra</id>
@@ -44,22 +46,45 @@
 			<timezone>1</timezone>
 		</developer>
 	</developers>
+
 	<scm>
-		<connection>scm:git:ssh://git.code.sf.net/p/muleebmsadapter/code</connection>
+		<connection>scm:git:git@github.com:java-ebms-adapter/ebms-adapter-core.git</connection>
+		<developerConnection>scm:git:git@github.com:java-ebms-adapter/ebms-adapter-core.git</developerConnection>
+		<url>https://github.com/java-ebms-adapter/ebms-adapter-core/</url>
 	</scm>
+
 	<organization>
 		<name>Ordina</name>
 		<url>www.ordina.nl</url>
 	</organization>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>OSSRH snapshot repository</name>
+			<url>${snapshot.repo.url}</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>OSSRH release repository</name>
+			<url>${release.repo.url}</url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<jdk.version>1.7</jdk.version>
 		<spring.version>3.2.1.RELEASE</spring.version>
 		<mime4j.version>0.7.2</mime4j.version>
 		<httpclient.version>4.5.3</httpclient.version>
 		<activemq.version>5.10.0</activemq.version>
-		<release.repo.url>http://sourceforge.net</release.repo.url>
-		<snapshot.repo.url>http://sourceforge.net</snapshot.repo.url>
+
+		<snapshot.repo.url>https://oss.sonatype.org/content/repositories/snapshots</snapshot.repo.url>
+		<release.repo.url>https://oss.sonatype.org/service/local/staging/deploy/maven2</release.repo.url>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -95,7 +120,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 			<scope>provided</scope>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
@@ -220,30 +245,28 @@
 			<version>1.3.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--dependency>
-			<groupId>ms</groupId>
-			<artifactId>sqljdbc4</artifactId>
-			<version>201004</version>
-			<scope>provided</scope>
-		</dependency-->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc7</artifactId>
-			<version>12.1.0.2</version>
-			<scope>provided</scope>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.oracle</groupId>-->
+<!--			<artifactId>ojdbc7</artifactId>-->
+<!--			<version>12.1.0.2</version>-->
+<!--			<scope>provided</scope>-->
+<!--		</dependency>-->
 	</dependencies>
+
 	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Central</name>
+			<url>https://repo1.maven.org/maven2/</url>
+			<layout>default</layout>
+		</repository>
 		<repository>
 		  <id>springsource-repo</id>
 		  <name>SpringSource Repository</name>
 		  <url>http://repo.springsource.org/release</url>
 		</repository>
-		<repository>
-			<id>codelds</id>
-			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
-		</repository>
 	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -342,12 +365,22 @@
 							<ignore>nl.clockwork.ebms.dao.*</ignore>
 						</ignores>
 					</instrumentation>
-					<systemProperties>
-						<property>
-							<name>net.sourceforge.cobertura.datafile</name>
-							<value>${basedir}/target/cobertura/cobertura.ser</value>
-						</property>
-					</systemProperties>
+					<check>
+						<branchRate>85</branchRate>
+						<lineRate>85</lineRate>
+						<haltOnFailure>true</haltOnFailure>
+						<totalBranchRate>85</totalBranchRate>
+						<totalLineRate>85</totalLineRate>
+						<packageLineRate>85</packageLineRate>
+						<packageBranchRate>85</packageBranchRate>
+						<regexes>
+							<regex>
+								<pattern>nl.clockwork.ebms.dao.*</pattern>
+								<branchRate>0</branchRate>
+								<lineRate>0</lineRate>
+							</regex>
+						</regexes>
+					</check>
 					<formats>
 						<format>html</format>
 						<format>xml</format>
@@ -370,7 +403,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.0.0-M1</version>
 				<configuration>
 					<source>${jdk.version}</source>
 					<doclint>none</doclint>
@@ -379,12 +412,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>2.14.1</version>
+				<version>2.19.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.7</version>
+				<version>3.6.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -415,7 +448,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.0.4</version>
 				<configuration>
 					<findbugsXmlOutputDirectory>${basedir}/target</findbugsXmlOutputDirectory>
 					<xmlOutput>true</xmlOutput>
@@ -427,7 +460,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>2.7.1</version>
 				<configuration>
-					<linkXref>true</linkXref>
+					<linkXRef>true</linkXRef>
 					<targetJdk>${jdk.version}</targetJdk>
 					<!--excludes>
 						<exclude>nl/clockwork/ebms/model/**/*.java</exclude>
@@ -437,8 +470,8 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
-				<version>2.0-beta-2</version>
-			</plugin>		
+				<version>2.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
@@ -460,16 +493,4 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	<distributionManagement>
-		<repository>
-			<id>release.repo</id>
-			<name>Release repository</name>
-			<url>${release.repo.url}</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshot.repo</id>
-			<name>Snapshot repository</name>
-			<url>${snapshot.repo.url}</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>
